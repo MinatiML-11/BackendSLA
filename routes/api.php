@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\LaundryController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RoleController;
 
@@ -22,4 +23,7 @@ Route::group([
 
   // Route Role
   Route::resource('role', RoleController::class);
+
+  // Route Laundry
+  Route::resource('laundry', LaundryController::class);
 });
