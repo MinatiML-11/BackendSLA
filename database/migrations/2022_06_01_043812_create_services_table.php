@@ -15,7 +15,7 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->integer('lanudry_id');
+            $table->integer('laundry_id');
             $table->integer('service_list_id');
             $table->integer('price');
             $table->softDeletes();

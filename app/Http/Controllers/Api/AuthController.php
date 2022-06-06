@@ -22,11 +22,11 @@ class AuthController extends Controller
                 'password' => Hash::make($registerRequest->password),
             ]);
 
-            $token = $user->createToken('app')->accessToken;
+            // $token = $user->createToken('app')->accessToken;
 
             return response()->json([
                 'message' => 'Successful Registration',
-                'token' => $token,
+                // 'token' => $token,
                 'user' => $user
             ], 200);
         } catch (Exception $exception) {
