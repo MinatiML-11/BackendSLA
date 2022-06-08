@@ -15,7 +15,7 @@ class CreateClothesTable extends Migration
     {
         Schema::create('clothes', function (Blueprint $table) {
             $table->id();
-            $table->integer('item_id');
+            $table->text('item_id');
             $table->text('item_description');
             $table->softDeletes();
             $table->timestamps();

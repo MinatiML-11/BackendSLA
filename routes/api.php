@@ -3,8 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ClothesController;
 use App\Http\Controllers\Api\LaundryController;
 use App\Http\Controllers\Api\OrdersController;
+use App\Http\Controllers\Api\PriceController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\ServiceController;
@@ -38,4 +40,10 @@ Route::group([
 
   // Route Service
   Route::resource('service', ServiceController::class);
+
+  // Route Price
+  Route::resource('price', PriceController::class);
+
+  // Route Clothes
+  Route::resource('clothes', ClothesController::class);
 });

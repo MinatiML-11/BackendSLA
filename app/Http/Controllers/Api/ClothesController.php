@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ServiceRequest;
-use App\Models\Laundry;
-use App\Models\Service;
-use App\Models\ServiceList;
+use App\Http\Requests\ClothesRequest;
+use App\Models\Clothes;
 use Exception;
 use Illuminate\Http\Request;
 
-class ServiceController extends Controller
+class ClothesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,32 +18,30 @@ class ServiceController extends Controller
     public function index()
     {
         try {
-            $services = Service::orderBy('id', 'asc')->get();
+            $clothes = Clothes::orderBy('id', 'asc')->get();
             $datum = [];
-            foreach ($services as $service) {
-                $laundryName = Laundry::where('id', $service['laundry_id'])->first()->name;
-                $serviceListName = ServiceList::where('id', $service['service_list_id'])->first()->name;
+            foreach ($clothes as $cloth) {
                 array_push($datum, [
-                    'id' => $service['id'],
-                    'laundry_name' => $laundryName,
-                    'service_list_id' => $serviceListName,
-                    'price' => $service['price'],
+                    'id' => $cloth['id'],
+                    'item_id' => $cloth['item_id'],
+                    'item_description' => $cloth['item_description']
                 ]);
             }
+
             if (sizeof($datum) > 0) {
                 return response()->json([
-                    'message' => 'success',
-                    'services' => $datum
+                    'messasge' => 'success',
+                    'clothes' => $datum
                 ], 200);
             } else {
                 return response()->json([
                     'message' => 'success',
-                    'services' => 'no service available yet'
+                    'clothes' => 'No data available yet'
                 ], 200);
             }
         } catch (Exception $exception) {
             return response()->json([
-                'message' => $exception->getMessage()
+                'mmessage' => $exception->getMessage()
             ], 400);
         }
     }
@@ -66,18 +62,16 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ServiceRequest $serviceRequest)
+    public function store(ClothesRequest $clothesRequest)
     {
         try {
-            $data = Service::create([
-                'laundry_id' => $serviceRequest['laundry_id'],
-                'service_list_id' => $serviceRequest['service_list_id'],
-                'price' => $serviceRequest['price']
+            $clothes = Clothes::create([
+                'item_id' => $clothesRequest['item_id'],
+                'item_description' => $clothesRequest['item_description']
             ]);
-
-            if ($data) {
+            if ($clothes) {
                 return response()->json([
-                    'message' => 'success'
+                    'message' => 'success',
                 ], 201);
             } else {
                 return response()->json([
@@ -100,25 +94,22 @@ class ServiceController extends Controller
     public function show($id)
     {
         try {
-            $service = Service::where('id', $id)->first();
-            if ($service) {
-                $laundryName = Laundry::where('id', $service['laundry_id'])->first()->name;
-                $serviceListName = ServiceList::where('id', $service['service_list_id'])->first()->name;
+            $cloth = Clothes::where('id', $id)->first();
+            if ($cloth) {
                 $data = [
-                    'id' => $service['id'],
-                    'laundryName' => $laundryName,
-                    'serviceListName' => $serviceListName,
-                    'price' => $service['price']
+                    'id' => $cloth['id'],
+                    'item_id' => $cloth['item_id'],
+                    'item_description' => $cloth['item_description']
                 ];
                 return response()->json([
                     'message' => 'success',
-                    'service' => $data
+                    'cloth' => $data
                 ], 200);
             } else {
                 return response()->json([
-                    'message' => 'succes',
-                    'service' => 'No data yet'
-                ], 400);
+                    'message' => 'success',
+                    'cloth' => 'No data cloth available yet'
+                ], 200);
             }
         } catch (Exception $exception) {
             return response()->json([
@@ -145,14 +136,13 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ServiceRequest $serviceRequest, $id)
+    public function update(ClothesRequest $clothesRequest, $id)
     {
         try {
-            $service = Service::find($id);
-            $service->laundry_id = $serviceRequest['laundry_id'];
-            $service->service_list_id = $serviceRequest['service_list_id'];
-            $service->price = $serviceRequest['price'];
-            $update = $service->save();
+            $cloth = Clothes::find($id);
+            $cloth['item_id'] = $clothesRequest['item_id'];
+            $cloth['item_description'] = $clothesRequest['item_description'];
+            $update = $cloth->save();
 
             if ($update) {
                 return response()->json([
@@ -179,10 +169,10 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         try {
-            $service = Service::find($id)->delete();
-            if ($service) {
+            $cloth = Clothes::find($id)->delete();
+            if ($cloth) {
                 return response()->json([
-                    'message' => 'success'
+                    'message' => 'success',
                 ], 200);
             } else {
                 return response()->json([

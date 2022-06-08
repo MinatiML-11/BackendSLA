@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ServiceRequest;
+use App\Http\Requests\PriceRequest;
+use App\Models\Clothes;
 use App\Models\Laundry;
-use App\Models\Service;
-use App\Models\ServiceList;
+use App\Models\Price;
 use Exception;
 use Illuminate\Http\Request;
 
-class ServiceController extends Controller
+class PriceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,16 +20,18 @@ class ServiceController extends Controller
     public function index()
     {
         try {
-            $services = Service::orderBy('id', 'asc')->get();
+            $prices = Price::orderBy('id', 'asc')->get();
             $datum = [];
-            foreach ($services as $service) {
-                $laundryName = Laundry::where('id', $service['laundry_id'])->first()->name;
-                $serviceListName = ServiceList::where('id', $service['service_list_id'])->first()->name;
+            foreach ($prices as $price) {
+                $cloth_name = Clothes::where('id', $price['clothes_id'])->first()->item_description;
+                $cloth_code = Clothes::where('id', $price['clothes_id'])->first()->item_id;
+                $laundryName = Laundry::where('id', $price['laundry_id'])->first()->name;
                 array_push($datum, [
-                    'id' => $service['id'],
+                    'id' => $price['id'],
+                    'cloth_name' => $cloth_name,
+                    'cloth_code' => $cloth_code,
                     'laundry_name' => $laundryName,
-                    'service_list_id' => $serviceListName,
-                    'price' => $service['price'],
+                    'price' => $price['price']
                 ]);
             }
             if (sizeof($datum) > 0) {
@@ -40,7 +42,7 @@ class ServiceController extends Controller
             } else {
                 return response()->json([
                     'message' => 'success',
-                    'services' => 'no service available yet'
+                    'services' => 'no price list available yet'
                 ], 200);
             }
         } catch (Exception $exception) {
@@ -66,22 +68,21 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ServiceRequest $serviceRequest)
+    public function store(PriceRequest $priceRequest)
     {
         try {
-            $data = Service::create([
-                'laundry_id' => $serviceRequest['laundry_id'],
-                'service_list_id' => $serviceRequest['service_list_id'],
-                'price' => $serviceRequest['price']
+            $data = Price::create([
+                'clothes_id' => $priceRequest['clothes_id'],
+                'laundry_id' => $priceRequest['laundry_id'],
+                'price' => $priceRequest['price']
             ]);
-
             if ($data) {
                 return response()->json([
-                    'message' => 'success'
+                    'message' => 'success',
                 ], 201);
             } else {
                 return response()->json([
-                    'message' => 'fail'
+                    'mmessage' => 'fail'
                 ], 400);
             }
         } catch (Exception $exception) {
@@ -100,25 +101,27 @@ class ServiceController extends Controller
     public function show($id)
     {
         try {
-            $service = Service::where('id', $id)->first();
-            if ($service) {
-                $laundryName = Laundry::where('id', $service['laundry_id'])->first()->name;
-                $serviceListName = ServiceList::where('id', $service['service_list_id'])->first()->name;
+            $price = Price::where('id', $id)->first();
+            if ($price) {
+                $cloth_name = Clothes::where('id', $price['clothes_id'])->first()->item_description;
+                $cloth_code = Clothes::where('id', $price['clothes_id'])->first()->item_id;
+                $laundryName = Laundry::where('id', $price['laundry_id'])->first()->name;
                 $data = [
-                    'id' => $service['id'],
-                    'laundryName' => $laundryName,
-                    'serviceListName' => $serviceListName,
-                    'price' => $service['price']
+                    'id' => $price['id'],
+                    'cloth_name' => $cloth_name,
+                    'cloth_code' => $cloth_code,
+                    'laundry_name' => $laundryName,
+                    'price' => $price['price']
                 ];
                 return response()->json([
                     'message' => 'success',
-                    'service' => $data
+                    'price ' => $data
                 ], 200);
             } else {
                 return response()->json([
-                    'message' => 'succes',
-                    'service' => 'No data yet'
-                ], 400);
+                    'message' => 'success',
+                    'price ' => 'No price data available yet'
+                ], 200);
             }
         } catch (Exception $exception) {
             return response()->json([
@@ -145,22 +148,22 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ServiceRequest $serviceRequest, $id)
+    public function update(PriceRequest $priceRequest, $id)
     {
         try {
-            $service = Service::find($id);
-            $service->laundry_id = $serviceRequest['laundry_id'];
-            $service->service_list_id = $serviceRequest['service_list_id'];
-            $service->price = $serviceRequest['price'];
-            $update = $service->save();
+            $price = Price::find($id);
+            $price['clothes_id'] = $priceRequest['clothes_id'];
+            $price['laundry_id'] = $priceRequest['laundry_id'];
+            $price['price'] = $priceRequest['price'];
+            $update = $price->save();
 
             if ($update) {
                 return response()->json([
-                    'message' => 'success'
+                    'message' => 'success',
                 ], 200);
             } else {
                 return response()->json([
-                    'message' => 'fail'
+                    'message' => 'fail',
                 ], 400);
             }
         } catch (Exception $exception) {
@@ -179,14 +182,14 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         try {
-            $service = Service::find($id)->delete();
-            if ($service) {
+            $price = Price::find($id)->delete();
+            if ($price) {
                 return response()->json([
-                    'message' => 'success'
+                    'message' => 'success',
                 ], 200);
             } else {
                 return response()->json([
-                    'message' => 'fail'
+                    'message' => 'fail',
                 ], 400);
             }
         } catch (Exception $exception) {
