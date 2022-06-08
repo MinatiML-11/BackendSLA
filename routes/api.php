@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\ServiceListController;
+use App\Http\Controllers\Api\StatusOrderController;
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
@@ -46,4 +47,7 @@ Route::group([
 
   // Route Clothes
   Route::resource('clothes', ClothesController::class);
+
+  // Route status order 
+  Route::resource('status-order', StatusOrderController::class);
 });

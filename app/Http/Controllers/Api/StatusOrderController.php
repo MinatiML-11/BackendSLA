@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ServiceRequest;
-use App\Models\Laundry;
-use App\Models\Service;
-use App\Models\ServiceList;
+use App\Http\Requests\StatusOrderRequest;
+use App\Models\StatusOrder;
 use Exception;
 use Illuminate\Http\Request;
 
-class ServiceController extends Controller
+class StatusOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,32 +18,23 @@ class ServiceController extends Controller
     public function index()
     {
         try {
-            $services = Service::orderBy('id', 'asc')->get();
+            $statusOrders = StatusOrder::orderBy('name', 'asc')->get();
             $datum = [];
-            foreach ($services as $service) {
-                $laundryName = Laundry::where('id', $service['laundry_id'])->first()->name;
-                $serviceListName = ServiceList::where('id', $service['service_list_id'])->first()->name;
+            foreach ($statusOrders as $statusOrder) {
                 array_push($datum, [
-                    'id' => $service['id'],
-                    'laundry_name' => $laundryName,
-                    'service_list_id' => $serviceListName,
-                    'price' => $service['price'],
+                    'id' => $statusOrder['id'],
+                    'name' => $statusOrder['name']
                 ]);
             }
             if (sizeof($datum) > 0) {
                 return response()->json([
                     'message' => 'success',
-                    'services' => $datum
-                ], 200);
-            } else {
-                return response()->json([
-                    'message' => 'success',
-                    'services' => 'no service available yet'
+                    'statusOrders' => $datum
                 ], 200);
             }
         } catch (Exception $exception) {
             return response()->json([
-                'message' => $exception->getMessage()
+                'message' => $exception->getMessage(),
             ], 400);
         }
     }
@@ -66,16 +55,14 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ServiceRequest $serviceRequest)
+    public function store(StatusOrderRequest $statusOrderRequest)
     {
         try {
-            $data = Service::create([
-                'laundry_id' => $serviceRequest['laundry_id'],
-                'service_list_id' => $serviceRequest['service_list_id'],
-                'price' => $serviceRequest['price']
+            $statusOrder = StatusOrder::create([
+                'name' => strtolower($statusOrderRequest['name'])
             ]);
 
-            if ($data) {
+            if ($statusOrder) {
                 return response()->json([
                     'message' => 'success'
                 ], 201);
@@ -100,19 +87,15 @@ class ServiceController extends Controller
     public function show($id)
     {
         try {
-            $service = Service::where('id', $id)->first();
-            if ($service) {
-                $laundryName = Laundry::where('id', $service['laundry_id'])->first()->name;
-                $serviceListName = ServiceList::where('id', $service['service_list_id'])->first()->name;
+            $statusOrder = StatusOrder::where('id', $id)->first();
+            if ($statusOrder) {
                 $data = [
-                    'id' => $service['id'],
-                    'laundryName' => $laundryName,
-                    'serviceListName' => $serviceListName,
-                    'price' => $service['price']
+                    'id' => $statusOrder['id'],
+                    'name' => $statusOrder['name']
                 ];
                 return response()->json([
                     'message' => 'success',
-                    'service' => $data
+                    'statusOrder' => $data
                 ], 200);
             } else {
                 return response()->json([
@@ -122,7 +105,7 @@ class ServiceController extends Controller
             }
         } catch (Exception $exception) {
             return response()->json([
-                'message' => $exception->getMessage()
+                'message' => $exception->getMessage(),
             ], 400);
         }
     }
@@ -145,14 +128,12 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ServiceRequest $serviceRequest, $id)
+    public function update(StatusOrderRequest $statusOrderRequest, $id)
     {
         try {
-            $service = Service::find($id);
-            $service->laundry_id = $serviceRequest['laundry_id'];
-            $service->service_list_id = $serviceRequest['service_list_id'];
-            $service->price = $serviceRequest['price'];
-            $update = $service->save();
+            $statusOrder = StatusOrder::find($id);
+            $statusOrder->name = $statusOrderRequest['name'];
+            $update = $statusOrder->save();
 
             if ($update) {
                 return response()->json([
@@ -179,8 +160,8 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         try {
-            $service = Service::find($id)->delete();
-            if ($service) {
+            $statusOrder = StatusOrder::find($id)->delete();
+            if ($statusOrder) {
                 return response()->json([
                     'message' => 'success'
                 ], 200);
