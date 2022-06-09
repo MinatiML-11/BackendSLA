@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ClothesController;
+use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\LaundryController;
 use App\Http\Controllers\Api\OrdersController;
 use App\Http\Controllers\Api\PriceController;
@@ -50,4 +51,7 @@ Route::group([
 
   // Route status order 
   Route::resource('status-order', StatusOrderController::class);
+
+  // route image
+  Route::resource('image', ImageController::class);
 });
