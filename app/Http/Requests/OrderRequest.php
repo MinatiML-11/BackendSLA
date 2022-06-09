@@ -28,8 +28,9 @@ class OrderRequest extends FormRequest
             'laudnry_id' => 'required',
             'item' => 'required|min:3',
             'delivery_price' => 'required',
-            'item_price' => 'required',
-            'total_price' => 'required',
+            'service_price' => 'required',
+            // 'item_price' => 'required',
+            // 'total_price' => 'required',
             'status_orders_id' => 'required'
         ];
     }
