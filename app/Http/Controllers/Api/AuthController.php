@@ -20,6 +20,7 @@ class AuthController extends Controller
                 'name' => $registerRequest->name,
                 'email' => $registerRequest->email,
                 'password' => Hash::make($registerRequest->password),
+                'role_id' => $registerRequest->role_id,
             ]);
 
             // $token = $user->createToken('app')->accessToken;
