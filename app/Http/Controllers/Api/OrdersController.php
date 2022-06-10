@@ -9,6 +9,9 @@ use App\Models\Order;
 use App\Models\Service;
 use App\Models\User;
 use App\Models\Price;
+use App\Models\Laundry;
+use App\Models\StatusOrder;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,14 +31,31 @@ class OrdersController extends Controller
                 $userName = User::where('id', $order['user_id'])->first()->name;
                 $laundryName = Laundry::where('id', $order['laundry_id'])->first()->name;
                 $status_orders = StatusOrder::where('id', $order['status_order_id'])->first()->name;
+
+                $listItems = explode(',', $order['item']);
+
+                $restoreItems = [];
+                for ($i = 0; $i < sizeof($listItems); $i++) {
+                    array_push($restoreItems, explode(':', $listItems[$i]));
+                }
+
+                $clothName = [];
                 $clothQty = [];
+                for ($j = 0; $j < sizeof($restoreItems); $j++) {
+                    $cloth = Clothes::where('id', $restoreItems[$j][0])->first()->item_id;
+                    array_push($clothName, $cloth);
+                    array_push($clothQty, $restoreItems[$j][1]);
+                }
+
                 array_push($datum, [
                     'id' => $order['id'],
+                    'user_id' => $order['user_id'],
                     'user_name' => $userName,
+                    'laundry_id' => $order['laundry_id'],
                     'laundry_name' => $laundryName,
-                    'delivery_price' => $order['delivery_price'],
-                    'item_price' => $order['item_price'],
-                    'service_price' => $order['service_price'],
+                    'item' => $order['item'],
+                    'materialName' => json_encode($clothName),
+                    'materialQty' => json_encode($clothQty),
                     'total_price' => $order['total_price'],
                     'status_order' => $status_orders,
                     'order_date' => $order['created_at']
@@ -141,7 +161,12 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+        } catch (Exception $exception) {
+            return response()->json([
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 
     /**
