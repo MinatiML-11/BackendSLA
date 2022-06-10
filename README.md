@@ -323,11 +323,11 @@ you will recive respond look like
 		</pre>
 	- Get all
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Get single item
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Update
 		<pre>
@@ -338,7 +338,7 @@ you will recive respond look like
 		</pre>
 	- Delete
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 - Image
 	- Create
@@ -350,11 +350,11 @@ you will recive respond look like
 		</pre>
 	- Get all
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Get single item
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Update
 		<pre>
@@ -365,7 +365,7 @@ you will recive respond look like
 		</pre>
 	- Delete
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>	
 - Laundry
 	- Create
@@ -379,11 +379,11 @@ you will recive respond look like
 		</pre>
 	- Get all
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Get single item
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Update
 		<pre>
@@ -396,7 +396,7 @@ you will recive respond look like
 		</pre>
 	- Delete
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 - Order
 	- Create
@@ -410,11 +410,11 @@ you will recive respond look like
 		</pre>
 	- Get all
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Get single item
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Update
 		<pre>
@@ -427,7 +427,7 @@ you will recive respond look like
 		</pre>
 	- Delete
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 - Price
 	- Create
@@ -440,11 +440,11 @@ you will recive respond look like
 		</pre>
 	- Get all
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Get single item
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Update
 		<pre>
@@ -456,7 +456,7 @@ you will recive respond look like
 		</pre>
 	- Delete
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 - Role
 	- Create
@@ -467,11 +467,11 @@ you will recive respond look like
 		</pre>
 	- Get all
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Get single item
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Update
 		{
@@ -479,7 +479,7 @@ you will recive respond look like
 		}
 	- Delete
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 - Service
 	- Create
@@ -490,11 +490,11 @@ you will recive respond look like
 		}
 	- Get all
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Get single item
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Update
 		{
@@ -504,7 +504,7 @@ you will recive respond look like
 		}
 	- Delete
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 - Service List
 	- Create
@@ -515,11 +515,11 @@ you will recive respond look like
 		</pre>
 	- Get all
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Get single item
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Update
 		<pre>
@@ -529,7 +529,7 @@ you will recive respond look like
 		</pre>
 	- Delete
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 - Status Order
 	- Create
@@ -540,11 +540,11 @@ you will recive respond look like
 		</pre>
 	- Get all
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Get single item
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
 	- Update
 		<pre>
@@ -554,5 +554,5 @@ you will recive respond look like
 		</pre>
 	- Delete
 		<pre>
-		"No data request require exceppt token"
+		"No data request require except token"
 		</pre>
