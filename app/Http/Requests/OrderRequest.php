@@ -25,13 +25,10 @@ class OrderRequest extends FormRequest
     {
         return [
             'user_id' => 'required',
-            'laudnry_id' => 'required',
+            'laundry_id' => 'required',
             'item' => 'required|min:3',
-            'delivery_price' => 'required',
-            'service_price' => 'required',
-            // 'item_price' => 'required',
-            // 'total_price' => 'required',
-            'status_orders_id' => 'required'
+            'service' => 'required',
+            'status_order_id' => 'required'
         ];
     }
 }

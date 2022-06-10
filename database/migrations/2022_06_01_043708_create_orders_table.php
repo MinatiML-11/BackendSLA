@@ -18,9 +18,7 @@ class CreateOrdersTable extends Migration
             $table->integer('user_id');
             $table->integer('laundry_id');
             $table->text('item');
-            $table->integer('delivery_price');
-            $table->integer('item_price');
-            $table->integer('service_price');
+            $table->text('service');
             $table->integer('total_price');
             $table->integer('status_order_id');
             $table->softDeletes();
