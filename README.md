@@ -7,58 +7,202 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## About Laundry Project
+### Cloud Computing Team
+- Ali Shoddiqien <a href="https://github.com/odik91"><img src="https://github.githubassets.com/images/modules/logos_page/Octocat.png"  width="30px" alt="ali shoddiqien"></a>
+- Khadafi
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Dicumentation
+## - Overview
+- This project uses laravel version 8.1 Documentation about Laravel can be seen on the official laravel website
+- Oatuh using laravel passport
+- PHP version using 8.1
+- Require composer package
+- Please enable php extension requirement before deploy to live production
+- Database using MySQL
+- For test api we recommended use Postman
+- Auth using Bearer token
+## - API Link
+- Register
+<pre>http://{host}/api/register</pre>
+<pre>POST Method</pre>
+- Login
+<pre>http://{host}/api/login</pre>
+<pre>POST Method</pre>
+- Clothes
+	- Create
+		<pre>http://{host}/api/clothes</pre>
+		<pre>POST Method</pre>
+	- Get all
+		<pre>http://{host}/api/clothes</pre>
+		<pre>GET Method</pre>
+	- Get single item
+		<pre>http://{host}/api/clothes/{id}</pre>
+		<pre>GET Method</pre>
+	- Update
+		<pre>http://{host}/api/clothes/{id}</pre>
+		<pre>PATCH Method</pre>
+	- Delete
+		<pre>http://{host}/api/clothes/{id}</pre>
+		<pre>DELETE Method</pre>
+- Image
+	- Create
+		<pre>http://{host}/api/image</pre>
+		<pre>POST Method</pre>
+	- Get all
+		<pre>http://{host}/api/image</pre>
+		<pre>GET Method</pre>
+	- Get single item
+		<pre>http://{host}/api/image/{id}</pre>
+		<pre>GET Method</pre>
+	- Update
+		<pre>http://{host}/api/image/{id}</pre>
+		<pre>PATCH Method</pre>
+	- Delete
+		<pre>http://{host}/api/image/{id}</pre>
+		<pre>DELETE Method</pre>	
+## - Route Lists
+### - Register request
+This API requires registration before use in order to access the features provided on each route with the POST, GET, PATCH and DELETE methods.
+#### Route Register explanation
+Route
+        http://{host}/api/register
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+##### Postman setup for registration
+- Use POST method
+- In body please use *raw* and set for *json*
+- Request body shoud look like
+<br>
+<pre>
+{
+    "name": "{{username}}",
+    "email": "{{registerEmail}}",
+    "password": "{{password}}",
+    "password_confirmation": "{{password}}",
+    "role_id": "{{role_id}}"
+}
+</pre>
+<br>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### - Login
+Route
+        http://{host}/api/login
 
-## Learning Laravel
+##### Postman setup for registration
+- Use POST method
+- In body please use *raw* and set for *json*
+- Request body shoud look like
+<br>
+<pre>
+{
+    "email": "{{registerEmail}}",
+    "password": "{{password}}"
+}
+</pre>
+<br>
+After success login you will recive respond look like
+<br>
+<pre>
+{
+    "message": "You have login successfully",
+    "token": "{{Please save this token for later}}",
+    "user": {
+        "id": *id,
+        "name": *username,
+        "email": *email,
+        "email_verified_at": *date,
+        "role_id": *role_id,
+        "deleted_at": *date,
+        "created_at": *date,
+        "updated_at": *date
+    }
+}
+</pre>
+<br>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### - View Profile
+Route
+        http://{host}/api/profile
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+##### Postman serup for view profile
+- Use GET method
+- In tab Authorization please select Type -> Bearer Token and for value we use token provided from login response
+you will recive respond look like
+<br>
+<pre>
+[
+    {
+        "id": 1,
+        "name": "user",
+        "email": "testuser@test.com"
+    }
+]
+</pre>
+<br>
 
-## Laravel Sponsors
+### - Add Service
+Route
+        http://{host}/api/service-list
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+##### Postman setup for Add Service
+- Use POST method
+- In tab Authorization please select Type -> Bearer Token and for value we use token provided from login response
+- In body please use *raw* and set for *json*
+- Request body shoud look like
+<br>
+<pre>
+{
+    "name": "{{serviceName}}"
+}
+</pre>
+<br>
+After success will recive respond look like
+<br>
+<pre>
+{
+    "message": "success",
+}
+</pre>
+<br>
 
-### Premium Partners
+### - View All Service
+Route
+        http://{host}/api/service-list
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+##### Postman setup for view all sevice
+- Use GET method
+- In tab Authorization please select Type -> Bearer Token and for value we use token provided from login response
+you will recive respond look like
+<br>
+<pre>
+{
+    "message": "success",
+    "service_list": [
+        {
+            "id": 1,
+            "name": "pickup"
+        },
+        {
+            "id": 2,
+            "name": "delivery"
+        },
+        {
+            "id": 3,
+            "name": "wash"
+        },
+        {
+            "id": 4,
+            "name": "iron"
+        }
+    ]
+}
+</pre>
+<br>
 
-## Contributing
+## - Stack
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## - Stack
 
-## Code of Conduct
+## - Stack
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## - Stack
