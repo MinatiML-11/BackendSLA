@@ -162,6 +162,59 @@ class OrdersController extends Controller
     public function show($id)
     {
         try {
+            $order = Order::where('id', $id)->first();
+            if ($order) {
+                $userName = User::where('id', $order['user_id'])->first()->name;
+                $laundryName = Laundry::where('id', $order['laundry_id'])->first()->name;
+                $status_orders = StatusOrder::where('id', $order['status_order_id'])->first()->name;
+                $listItems = explode(',', $order['item']);
+
+                $datum = [];
+
+                $restoreItems = [];
+                for ($i = 0; $i < sizeof($listItems); $i++) {
+                    array_push($restoreItems, explode(':', $listItems[$i]));
+                }
+
+                $clothName = [];
+                $clothQty = [];
+                for ($j = 0; $j < sizeof($restoreItems); $j++) {
+                    $cloth = Clothes::where('id', $restoreItems[$j][0])->first()->item_id;
+                    array_push($clothName, $cloth);
+                    array_push($clothQty, $restoreItems[$j][1]);
+                }
+
+                array_push($datum, [
+                    'id' => $order['id'],
+                    'user_id' => $order['user_id'],
+                    'user_name' => $userName,
+                    'laundry_id' => $order['laundry_id'],
+                    'laundry_name' => $laundryName,
+                    'item' => $order['item'],
+                    'materialName' => json_encode($clothName),
+                    'materialQty' => json_encode($clothQty),
+                    'total_price' => $order['total_price'],
+                    'status_order' => $status_orders,
+                    'order_date' => $order['created_at']
+                ]);
+
+                if ($datum) {
+                    return response()->json([
+                        'message' =>  'success',
+                        'orders' => $datum
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'message' =>  'success',
+                        'orders' => 'No data available yet'
+                    ], 200);
+                }
+            } else {
+                return response()->json([
+                    'message' =>  'success',
+                    'orders' => 'No data available yet'
+                ], 200);
+            }
         } catch (Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage()
@@ -187,9 +240,64 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OrderRequest $orderRequest, $id)
     {
-        //
+        try {
+            $order = Order::find($id);
+
+            $services = Service::where('laundry_id', explode(',', $orderRequest['service']))->get();
+            $arrService = explode(',', $orderRequest['service']);
+
+            $listItems = explode(',', $orderRequest['item']);
+            $restoreItems = [];
+            for ($i = 0; $i < sizeof($listItems); $i++) {
+                array_push($restoreItems, explode(':', $listItems[$i]));
+            }
+
+            // get total single cloth type
+            $baseItemPrice = [];
+            for ($j = 0; $j < sizeof($restoreItems); $j++) {
+                $price = Price::where('clothes_id', $restoreItems[$j][0])->first()->price;
+                array_push($baseItemPrice, $price * $restoreItems[$j][1]);
+            }
+
+            // get total item price
+            $totalItemPrice = 0;
+            for ($k = 0; $k < sizeof($baseItemPrice); $k++) {
+                $totalItemPrice += $baseItemPrice[$k];
+            }
+
+            $serviceExpensive = 0;
+            for ($i = 0; $i < sizeof($arrService); $i++) {
+                if ($services[$i]['service_list_id'] == $arrService[$i]) {
+                    $serviceExpensive += $services[$i]['price'];
+                }
+            }
+
+            $grandTotal = $totalItemPrice + $serviceExpensive;
+
+            $order->user_id = $orderRequest['user_id'];
+            $order->laundry_id = $orderRequest['laundry_id'];
+            $order->item = $orderRequest['item'];
+            $order->service = $orderRequest['service'];
+            $order->total_price = $grandTotal;
+            $order->status_order_id = $orderRequest['status_order_id'];
+            $update = $order->save();
+
+            if ($update) {
+                return response()->json([
+                    'message' =>  'success'
+                ], 200);
+            } else {
+                return response()->json([
+                    'message' =>  'fail'
+                ], 400);
+            }
+        } catch (Exception $exception) {
+            return response()->json([
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 
     /**
@@ -200,6 +308,21 @@ class OrdersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $order = Order::find($id)->delete();
+            if ($order) {
+                return response()->json([
+                    'message' => 'success'
+                ], 200);
+            } else {
+                return response()->json([
+                    'message' => 'fail'
+                ], 400);
+            }
+        } catch (Exception $exception) {
+            return response()->json([
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 }
