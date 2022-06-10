@@ -56,11 +56,124 @@
 		<pre>http://{host}/api/image/{id}</pre>
 		<pre>GET Method</pre>
 	- Update
-		<pre>http://{host}/api/image/{id}</pre>
-		<pre>PATCH Method</pre>
+		<pre>http://{host}/api/image/{id}?_method=PATCH</pre>
+		<pre>POST Method</pre>
+		<pre># Note PATCH method can't carrying so we need to specify method through url</pre>
 	- Delete
 		<pre>http://{host}/api/image/{id}</pre>
 		<pre>DELETE Method</pre>	
+- Laundry
+	- Create
+		<pre>http://{host}/api/laundry</pre>
+		<pre>POST Method</pre>
+	- Get all
+		<pre>http://{host}/api/laundry</pre>
+		<pre>GET Method</pre>
+	- Get single item
+		<pre>http://{host}/api/laundry/{id}</pre>
+		<pre>GET Method</pre>
+	- Update
+		<pre>http://{host}/api/laundry/{id}</pre>
+		<pre>PATCH Method</pre>
+	- Delete
+		<pre>http://{host}/api/laundry/{id}</pre>
+		<pre>DELETE Method</pre>
+- Order
+	- Create
+		<pre>http://{host}/api/order</pre>
+		<pre>POST Method</pre>
+	- Get all
+		<pre>http://{host}/api/order</pre>
+		<pre>GET Method</pre>
+	- Get single item
+		<pre>http://{host}/api/order/{id}</pre>
+		<pre>GET Method</pre>
+	- Update
+		<pre>http://{host}/api/order/{id}</pre>
+		<pre>PATCH Method</pre>
+	- Delete
+		<pre>http://{host}/api/order/{id}</pre>
+		<pre>DELETE Method</pre>
+- Price
+	- Create
+		<pre>http://{host}/api/price</pre>
+		<pre>POST Method</pre>
+	- Get all
+		<pre>http://{host}/api/price</pre>
+		<pre>GET Method</pre>
+	- Get single item
+		<pre>http://{host}/api/price/{id}</pre>
+		<pre>GET Method</pre>
+	- Update
+		<pre>http://{host}/api/price/{id}</pre>
+		<pre>PATCH Method</pre>
+	- Delete
+		<pre>http://{host}/api/price/{id}</pre>
+		<pre>DELETE Method</pre>
+- Role
+	- Create
+		<pre>http://{host}/api/role</pre>
+		<pre>POST Method</pre>
+	- Get all
+		<pre>http://{host}/api/role</pre>
+		<pre>GET Method</pre>
+	- Get single item
+		<pre>http://{host}/api/role/{id}</pre>
+		<pre>GET Method</pre>
+	- Update
+		<pre>http://{host}/api/role/{id}</pre>
+		<pre>PATCH Method</pre>
+	- Delete
+		<pre>http://{host}/api/role/{id}</pre>
+		<pre>DELETE Method</pre>
+- Service
+	- Create
+		<pre>http://{host}/api/service</pre>
+		<pre>POST Method</pre>
+	- Get all
+		<pre>http://{host}/api/service</pre>
+		<pre>GET Method</pre>
+	- Get single item
+		<pre>http://{host}/api/service/{id}</pre>
+		<pre>GET Method</pre>
+	- Update
+		<pre>http://{host}/api/service/{id}</pre>
+		<pre>PATCH Method</pre>
+	- Delete
+		<pre>http://{host}/api/service/{id}</pre>
+		<pre>DELETE Method</pre>
+- Service List
+	- Create
+		<pre>http://{host}/api/service-list</pre>
+		<pre>POST Method</pre>
+	- Get all
+		<pre>http://{host}/api/service-list</pre>
+		<pre>GET Method</pre>
+	- Get single item
+		<pre>http://{host}/api/service-list/{id}</pre>
+		<pre>GET Method</pre>
+	- Update
+		<pre>http://{host}/api/service-list/{id}</pre>
+		<pre>PATCH Method</pre>
+	- Delete
+		<pre>http://{host}/api/service-list/{id}</pre>
+		<pre>DELETE Method</pre>
+- Status Order
+	- Create
+		<pre>http://{host}/api/status-order</pre>
+		<pre>POST Method</pre>
+	- Get all
+		<pre>http://{host}/api/status-order</pre>
+		<pre>GET Method</pre>
+	- Get single item
+		<pre>http://{host}/api/status-order/{id}</pre>
+		<pre>GET Method</pre>
+	- Update
+		<pre>http://{host}/api/status-order/{id}</pre>
+		<pre>PATCH Method</pre>
+	- Delete
+		<pre>http://{host}/api/status-order/{id}</pre>
+		<pre>DELETE Method</pre>
 ## - Route Lists
 ### - Register request
 This API requires registration before use in order to access the features provided on each route with the POST, GET, PATCH and DELETE methods.
@@ -199,10 +312,247 @@ you will recive respond look like
 </pre>
 <br>
 
-## - Stack
-
-## - Stack
-
-## - Stack
-
-## - Stack
+## - Other requests are almost the same, there is a difference only in the body of the request
+- Clothes
+	- Create
+		<pre>
+		{
+		    "item_id": "code for cloth",
+		    "item_description": "description"
+		}
+		</pre>
+	- Get all
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Get single item
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Update
+		<pre>
+		{
+		    "item_id": "code for cloth",
+		    "item_description": "description"
+		}
+		</pre>
+	- Delete
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+- Image
+	- Create
+		<pre>
+			Please use form-data
+			fill required
+			*order_id (order id)
+			*image_name (image file)
+		</pre>
+	- Get all
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Get single item
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Update
+		<pre>
+			Please use form-data
+			fill required
+			*order_id (order id)
+			*image_name (image file)
+		</pre>
+	- Delete
+		<pre>
+		"No data request require exceppt token"
+		</pre>	
+- Laundry
+	- Create
+		<pre>
+		{
+			'user_id' : user_id,
+		        'name' => "laundry name",
+		        'address' => "address",
+		        'longlat' => "longlat or latlong"
+		}
+		</pre>
+	- Get all
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Get single item
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Update
+		<pre>
+		{
+			'user_id' : user_id,
+		        'name' => "laundry name",
+		        'address' => "address",
+		        'longlat' => "longlat or latlong"
+		}
+		</pre>
+	- Delete
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+- Order
+	- Create
+		<pre>
+		# Please test use form-data
+		user_id = user_id
+		laundry_id = laundry_id
+		item = clothes_id:qty,clothes_id:qty
+		# Note for item
+		# every pair sparate by ',' comma and value sparate by ':'
+		</pre>
+	- Get all
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Get single item
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Update
+		<pre>
+		# Please test use form-data
+		user_id = user_id
+		laundry_id = laundry_id
+		item = clothes_id:qty,clothes_id:qty
+		# Note for item
+		# every pair sparate by ',' comma and value sparate by ':'
+		</pre>
+	- Delete
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+- Price
+	- Create
+		<pre>
+		{
+		    "clothes_id" : 1,
+		    "laundry_id" : 4,
+		    "price": 4000
+		}
+		</pre>
+	- Get all
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Get single item
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Update
+		<pre>
+		{
+		    "clothes_id" : 1,
+		    "laundry_id" : 4,
+		    "price": 4000
+		}
+		</pre>
+	- Delete
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+- Role
+	- Create
+		<pre>
+		{
+		    "role" : "role name",
+		}
+		</pre>
+	- Get all
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Get single item
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Update
+		{
+		    "role" : "role name",
+		}
+	- Delete
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+- Service
+	- Create
+		{
+		    "laundry_id": laundryid,
+		    "service_list_id": service list id,
+		    "price": price
+		}
+	- Get all
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Get single item
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Update
+		{
+		    "laundry_id": laundryid,
+		    "service_list_id": service list id,
+		    "price": price
+		}
+	- Delete
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+- Service List
+	- Create
+		<pre>
+		{
+		    "name": "{{serviceName}}"
+		}
+		</pre>
+	- Get all
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Get single item
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Update
+		<pre>
+		{
+		    "name": "{{serviceName}}"
+		}
+		</pre>
+	- Delete
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+- Status Order
+	- Create
+		<pre>
+		{
+		    "name": "status order"
+		}
+		</pre>
+	- Get all
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Get single item
+		<pre>
+		"No data request require exceppt token"
+		</pre>
+	- Update
+		<pre>
+		{
+		    "name": "status order"
+		}
+		</pre>
+	- Delete
+		<pre>
+		"No data request require exceppt token"
+		</pre>
