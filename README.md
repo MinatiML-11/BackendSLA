@@ -345,8 +345,8 @@ you will recive respond look like
 		<pre>
 			Please use form-data
 			fill required
-			*order_id (order id)
-			*image_name (image file)
+			*order_id = order id
+			*image_name = image file
 		</pre>
 	- Get all
 		<pre>
@@ -360,8 +360,8 @@ you will recive respond look like
 		<pre>
 			Please use form-data
 			fill required
-			*order_id (order id)
-			*image_name (image file)
+			*order_id = order id
+			*image_name = image file
 		</pre>
 	- Delete
 		<pre>
@@ -372,9 +372,9 @@ you will recive respond look like
 		<pre>
 		{
 			'user_id' : user_id,
-		        'name' => "laundry name",
-		        'address' => "address",
-		        'longlat' => "longlat or latlong"
+		        'name' : "laundry name",
+		        'address' : "address",
+		        'longlat' : "longlat or latlong"
 		}
 		</pre>
 	- Get all
@@ -389,9 +389,9 @@ you will recive respond look like
 		<pre>
 		{
 			'user_id' : user_id,
-		        'name' => "laundry name",
-		        'address' => "address",
-		        'longlat' => "longlat or latlong"
+		        'name' : "laundry name",
+		        'address' : "address",
+		        'longlat' : "longlat or latlong"
 		}
 		</pre>
 	- Delete
